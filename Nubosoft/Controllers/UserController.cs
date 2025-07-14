@@ -21,8 +21,11 @@ namespace Nubosoft.Controllers
         }
 
         // GET: User/Details/5
-        public ActionResult Details(int id)
-        {            
+        public ActionResult Details(int? id)
+        {
+            if (id == null || id <= 0)
+                return RedirectToAction("Index");
+
             using (AppDbContext context = new AppDbContext())
             {
                 var user = context.Users.Where(u => u.Id == id).FirstOrDefault();
@@ -61,8 +64,11 @@ namespace Nubosoft.Controllers
         }
 
         // GET: User/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
+            if (id == null || id <= 0)
+                return RedirectToAction("Index");
+
             using (AppDbContext context = new AppDbContext())
             {
                 var user = context.Users.Where(u => u.Id == id).FirstOrDefault();
@@ -72,10 +78,12 @@ namespace Nubosoft.Controllers
 
         // POST: User/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, User users)
+        public ActionResult Edit(int? id, User users)
         {
+            if (id == null || id <= 0)
+                return RedirectToAction("Index");
             try
-            {
+            {   
                 using (AppDbContext context = new AppDbContext())
                 {
                     if (ModelState.IsValid)
@@ -95,8 +103,11 @@ namespace Nubosoft.Controllers
         }
 
         // GET: User/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
+            if (id == null || id <= 0)
+                return RedirectToAction("Index");
+
             using (AppDbContext context = new AppDbContext())
             {
                 var user = context.Users.Where(u => u.Id == id).FirstOrDefault();
@@ -106,8 +117,10 @@ namespace Nubosoft.Controllers
 
         // POST: User/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int? id, FormCollection collection)
         {
+            if (id == null || id <= 0)
+                return RedirectToAction("Index");
             try
             {
                 using (AppDbContext context = new AppDbContext())
