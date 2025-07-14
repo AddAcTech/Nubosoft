@@ -139,6 +139,10 @@
     <Compile Include="Migrations\202507132158154_Start.Designer.cs">
       <DependentUpon>202507132158154_Start.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202507140030405_EmailUniqueFix.cs" />
+    <Compile Include="Migrations\202507140030405_EmailUniqueFix.Designer.cs">
+      <DependentUpon>202507140030405_EmailUniqueFix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -233,6 +237,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202507132158154_Start.resx">
       <DependentUpon>202507132158154_Start.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202507140030405_EmailUniqueFix.resx">
+      <DependentUpon>202507140030405_EmailUniqueFix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

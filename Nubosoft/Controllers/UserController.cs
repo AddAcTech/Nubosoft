@@ -41,25 +41,26 @@ namespace Nubosoft.Controllers
 
         // POST: User/Create
         [HttpPost]
-        public ActionResult Create(User users)
+        public ActionResult Create(User user)
         {
-            try
+            using (AppDbContext context = new AppDbContext())
             {
-                using (AppDbContext context = new AppDbContext())
+                // Validación de email duplicado
+                var emailExistente = context.Users.Any(u => u.Email == user.Email);
+                if (emailExistente)
                 {
-                    if (ModelState.IsValid)
-                    {
-                        context.Users.Add(users);
-                        context.SaveChanges();
-                        return RedirectToAction("Index");
-                    }
+                    ModelState.AddModelError("Email", "Este correo electrónico ya está registrado.");
+                    return View(user);
                 }
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
+                if (ModelState.IsValid)
+                {
+                    context.Users.Add(user);
+                    context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                return View(user);
             }
         }
 
@@ -78,27 +79,31 @@ namespace Nubosoft.Controllers
 
         // POST: User/Edit/5
         [HttpPost]
-        public ActionResult Edit(int? id, User users)
+        public ActionResult Edit(int? id, User user)
         {
             if (id == null || id <= 0)
                 return RedirectToAction("Index");
-            try
-            {   
-                using (AppDbContext context = new AppDbContext())
+
+            using (AppDbContext context = new AppDbContext())
+            {
+                // Validación de email duplicado (excluyendo el usuario actual)
+                var emailExistente = context.Users
+                    .Any(u => u.Email == user.Email && u.Id != user.Id);
+
+                if (emailExistente)
                 {
-                    if (ModelState.IsValid)
-                    {
-                        context.Entry(users).State = EntityState.Modified;
-                        context.SaveChanges();
-                        return RedirectToAction("Index");
-                    }
+                    ModelState.AddModelError("Email", "Este correo electrónico ya está registrado por otro usuario.");
+                    return View(user);
                 }
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
+                if (ModelState.IsValid)
+                {
+                    context.Entry(user).State = EntityState.Modified;
+                    context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                return View(user);
             }
         }
 
