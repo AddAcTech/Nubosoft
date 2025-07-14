@@ -12,9 +12,9 @@
 - Menú `Ver → Otras ventanas → Consola del Administrador de paquetes`.
 
 5. Ejecutar los siguientes comandos para crear la base de datos:
-  Enable-Migrations # Solo la primera vez 
-  Add-Migration Start 
-  Update-Database
+  - Enable-Migrations # Solo la primera vez 
+  - Add-Migration Start 
+  - Update-Database
   
 6. Ejecutar el proyecto (`F5`) y se abrirá directamente en la página de usuarios.
 
